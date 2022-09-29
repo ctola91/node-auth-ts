@@ -1,13 +1,8 @@
-import express, { NextFunction, Request, Response } from "express";
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
+import Server from './models/server';
 
-const app = express();
-dotenv.config(); //Reads .env file and makes it accessible via process.env
+dotenv.config();
 
-app.get("/test", (req: Request, res: Response, next: NextFunction) => {
-    res.send("hi");
-});
+const server = new Server();
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server is running at ${process.env.PORT}`);
-});
+server.listen();
