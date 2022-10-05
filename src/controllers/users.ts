@@ -7,3 +7,16 @@ export const getUsers = async (req: Request, res: Response) => {
 
     res.json({ users });
 }
+
+export const getUser = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const user = await User.findByPk(id);
+    if (user) {
+        res.json(user);
+    } else {
+        res.status(404).json({
+            msg: `No existe un user con el id ${id}`
+        })
+    }
+}
