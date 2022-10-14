@@ -6,7 +6,6 @@ const DB_NAME: string = process.env.DB_NAME || 'authdb';
 const DB_PASSWORD: string = process.env.DB_PASSWORD || 'authdbpass';
 const DB_PORT: string = process.env.DB_PORT || '5432';
 
-console.log(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST);
 const db = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
     host: DB_HOST,
     dialect: 'postgres',

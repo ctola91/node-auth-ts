@@ -1,0 +1,1 @@
+INSERT INTO public.users(username, userpass, is_active) VALUES ('admin', 'Kadmin123', true);
