@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dist/app.js",
-    "dev": "nodemon -L -e ts --exec \"npm run build && npm start\"",
+    "start": "npm run build && npm run dev",
+    "dev": "nodemon -r dotenv/config ./dist/app.js",
     "build": "tsc"
   },
   "keywords": [],
