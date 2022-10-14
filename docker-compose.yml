@@ -1,9 +1,7 @@
 version: "3.9"
 services:
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+    build: .
     ports:
       - "${PORT}:${PORT}"
     links:
@@ -13,7 +11,7 @@ services:
   db:
     image: postgres
     ports:
-      - "5432:${DB_PORT}"
+      - "${DB_PORT}:${DB_PORT}"
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
