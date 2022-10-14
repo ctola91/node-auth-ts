@@ -40,8 +40,8 @@ export const postUser = async (req: Request, res: Response) => {
         }
 
 
-        const user = new User();
-        user.update(body);
+        const user = User.build(body);
+        
         await user.save();
 
         res.json(user);
