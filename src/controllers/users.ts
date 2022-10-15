@@ -41,7 +41,7 @@ export const postUser = async (req: Request, res: Response) => {
 
 
         const user = User.build(body);
-        
+
         await user.save();
 
         res.json(user);
@@ -54,4 +54,41 @@ export const postUser = async (req: Request, res: Response) => {
             msg: 'Hable con el administrador'
         })
     }
+}
+
+export const putUser = async (req: Request, res: Response) => {
+
+    const { id } = req.params;
+    const { body } = req;
+
+    try {
+        const user = await User.findByPk(id);
+        if (!user) {
+            return res.status(404).json({
+                msg: 'No existe un usuario con el id ' + id
+            });
+        }
+        await user.update(body);
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'Hable con el administrador'
+        })
+    }
+}
+
+export const deleteUser = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const user = await User.findByPk(id);
+    if (!user) {
+        return res.status(404).json({
+            msg: 'No existe un usuario con el id ' + id
+        });
+    }
+
+    await user.update({ isActive: false });
+    // await usuario.destroy();
+
+    res.json(user);
 }

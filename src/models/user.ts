@@ -8,6 +8,9 @@ const User = db.define('users', {
     userpass: {
         type: DataTypes.STRING
     },
+    userrole: {
+        type: DataTypes.STRING
+    },
     isActive: {
         type: DataTypes.BOOLEAN
     },
