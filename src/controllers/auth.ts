@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { json } from "sequelize/types";
 import { getUserByEmail } from '../services/UserService';
-import { getToken } from '../services/AuthService';
+import { getToken, isValidPassword } from '../services/AuthService';
 
 export const login = async (req: Request, res: Response) => {
     try {
@@ -12,7 +12,11 @@ export const login = async (req: Request, res: Response) => {
                 message: "User or password incorrect"
             });
         }
-        // TODO: VALIDATE PASSWORD
+        if (!isValidPassword(body.password, user.password)) {
+            return res.status(401).json({
+                message: "User or password incorrect"
+            })
+        }
         const token = getToken(user);
         res.json({ user, token })
     } catch (e) {

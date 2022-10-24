@@ -5,7 +5,7 @@ export const getUserByEmail = async (email: string) => await UserRepository.find
 
 export const findAndCountAll = async (from = 0, limit = 5, attributes: any) => {
     let defaultFilters = {
-        state: true
+        isActive: true
     }
 
     return await UserRepository.findAndCountAll(from, limit, defaultFilters, attributes);

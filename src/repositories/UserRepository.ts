@@ -1,7 +1,7 @@
 import User from "../models/user";
 
-const findOneByEmail = async (username: string) => {
-    return await User.findOne({ where: { username } });
+const findOneByEmail = async (email: string) => {
+    return await User.findOne({ where: { email } });
 }
 
 const findAndCountAll = async (from = 0, limit = 5, filters: any, attributes: any) => {
@@ -14,15 +14,14 @@ const findAndCountAll = async (from = 0, limit = 5, filters: any, attributes: an
     return data;
 }
 
-const createUser = async (firstName: string, lastName: string, email: string, password: string, userrole: string) => {
-    const user = await User.build({
+const createUser = async (firstName: string, lastName: string, email: string, password: string, role: string) => {
+    const user = await User.create({
         firstName,
         lastName,
         email,
         password,
-        userrole
+        role
     });
-    user.save();
     return user;
 }
 

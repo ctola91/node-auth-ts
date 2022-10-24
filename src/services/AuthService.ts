@@ -1,16 +1,11 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import User from "../types/User";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import User from "../models/user";
 
-
-interface TokenPayload {
-    exp: number,
-    accessTypes: string,
-    user: User
-}
+const TIME_TOKEN = process.env.TIME_TOKEN || 60 * 60 * 24 * 30;
 
 export const getToken = (user: User) => {
-    return jwt.sign({ user }, String(process.env.SEED), { expiresIn: process.env.TIME_TOKEN })
+    return jwt.sign({ user }, String(process.env.SEED), { expiresIn: Number(TIME_TOKEN) })
 }
 
 export const isValidPassword = (password: string, dbPassword: string): boolean => {
@@ -19,7 +14,7 @@ export const isValidPassword = (password: string, dbPassword: string): boolean =
 
 export const validateToken = (token: string) => {
     try {
-        let decoded = jwt.verify(token, String(process.env.SEED));
+        let decoded = jwt.verify(token, String(process.env.SEED)) as JwtPayload;
         return { decoded, err: null }
     } catch (e) {
         console.log(e);
@@ -28,5 +23,5 @@ export const validateToken = (token: string) => {
 }
 
 export const isAdmin = (user: User) => {
-    return user.userrole === 'ADMIN_ROLE'
+    return user.role === 'ADMIN_ROLE'
 }

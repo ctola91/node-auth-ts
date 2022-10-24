@@ -7,7 +7,7 @@ export const getUsers = async (req: Request, res: Response) => {
     try {
         let from: number = Number(req.query.from) || 0;
         let limit: number = Number(req.query.limit) || 5;
-        const attributes = ['id', 'firstName', 'email', 'userrole', 'state'];
+        const attributes = ['id', 'firstName', 'email', 'role', 'isActive'];
 
         const { count, rows } = await findAndCountAll(from, limit, attributes)
         return res.json({
@@ -50,7 +50,7 @@ export const postUser = async (req: Request, res: Response) => {
             });
         }
 
-        const user = await createUser(body.firstName, body.lastName, body.email, body.password, body.userrole);
+        const user = await createUser(body.firstName, body.lastName, body.email, body.password, body.role);
 
         res.status(201).json(user);
 
