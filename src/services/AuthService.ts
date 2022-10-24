@@ -2,6 +2,13 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../types/User";
 
+
+interface TokenPayload {
+    exp: number,
+    accessTypes: string,
+    user: User
+}
+
 export const getToken = (user: User) => {
     return jwt.sign({ user }, String(process.env.SEED), { expiresIn: process.env.TIME_TOKEN })
 }
